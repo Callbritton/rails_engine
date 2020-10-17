@@ -3,54 +3,74 @@ require 'csv'
 desc "import csv data"
 task import: :environment do
 
+  puts "Resetting database..."
+
+  Transaction.destroy_all
+  InvoiceItem.destroy_all
+  Invoice.destroy_all
+  Item.destroy_all
+  Merchant.destroy_all
+  Customer.destroy_all
+
 # Customers:
-  # file = "./db/csv_data/customers.csv"
-  # CSV.foreach(file, headers: true) do |row|
-  #   Customer.create(row.to_hash)
-  # end
-  # puts "Imported customers."
+  puts "Importing Customers..."
+
+  file = "./db/csv_data/customers.csv"
+  CSV.foreach(file, headers: true) do |row|
+    Customer.create!(row.to_hash)
+  end
 
 # Merchants:
-  # file = "./db/csv_data/merchants.csv"
-  # CSV.foreach(file, headers: true) do |row|
-  #   Merchant.create(row.to_hash)
-  # end
-  # puts "Imported merchants."
+  puts "Importing Merchants..."
+
+  file = "./db/csv_data/merchants.csv"
+  CSV.foreach(file, headers: true) do |row|
+    Merchant.create!(row.to_hash)
+  end
 
 # Invoices:
-  # file = "./db/csv_data/invoices.csv"
-  # CSV.foreach(file, headers: true) do |row|
-  #   Invoice.create(row.to_hash)
-  # end
-  # puts "Imported invoices."
+  puts "Importing Invoices..."
+
+  file = "./db/csv_data/invoices.csv"
+  CSV.foreach(file, headers: true) do |row|
+    Invoice.create!(row.to_hash)
+  end
 
 # Transactions
-  # file = "./db/csv_data/transactions.csv"
-  # CSV.foreach(file, headers: true) do |row|
-  #   Transaction.create(row.to_hash)
-  # end
-  # puts "Imported transactions"
+  puts "Importing Transactions..."
+
+  file = "./db/csv_data/transactions.csv"
+  CSV.foreach(file, headers: true) do |row|
+    Transaction.create!(row.to_hash)
+  end
 
 # Items:
-   # file = "./db/csv_data/items.csv"
-   # CSV.foreach(file, headers: true) do |row|
-   #    data = row.to_hash
-   #    if data["unit_price"]
-   #      data["unit_price"] = (data["unit_price"].to_f / 100).round(2)
-   #    end
-   #    Item.create!(data)
-   #  end
-   #  puts "Imported items"
+  puts "Importing Items"
+
+  file = "./db/csv_data/items.csv"
+  CSV.foreach(file, headers: true) do |row|
+     data = row.to_hash
+     if data["unit_price"]
+       data["unit_price"] = (data["unit_price"].to_f / 100).round(2)
+     end
+     Item.create!(data)
+   end
 
 # InvoiceItems:
-  # file = "./db/csv_data/invoice_items.csv"
-  # CSV.foreach(file, headers: true) do |row|
-  #   data = row.to_hash
-  #   if data["unit_price"]
-  #     data["unit_price"] = (data["unit_price"].to_f / 100).round(2)
-  #   end
-  #   InvoiceItem.create!(data)
-  # end
-  # puts "Imported invoice items."
+  puts "Importing InvoiceItems..."
 
+  file = "./db/csv_data/invoice_items.csv"
+  CSV.foreach(file, headers: true) do |row|
+    data = row.to_hash
+    if data["unit_price"]
+      data["unit_price"] = (data["unit_price"].to_f / 100).round(2)
+    end
+    InvoiceItem.create!(data)
+  end
+
+  ActiveRecord::Base.connection.tables.each do |t|
+    ActiveRecord::Base.connection.reset_pk_sequence!(t)
+  end
+
+  puts "All data successfully imported to database!"
 end
