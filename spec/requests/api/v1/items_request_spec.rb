@@ -8,22 +8,22 @@ describe "Items API" do
 
     expect(response).to be_successful
 
-    items = JSON.parse(response.body, symbolize_names: true)
+    item = JSON.parse(response.body, symbolize_names: true)
+    data = item[:data][0]
+    attributes = data[:attributes]
 
-    expect(items.count).to eq(3)
+    expect(data.count).to eq(3)
 
-    items.each do |item|
-      expect(item).to have_key(:id)
-      expect(item[:id]).to be_an(Integer)
+    expect(data).to have_key(:id)
+    expect(data[:id]).to be_an(String)
 
-      expect(item).to have_key(:name)
-      expect(item[:name]).to be_a(String)
+    expect(attributes).to have_key(:name)
+    expect(attributes[:name]).to be_a(String)
 
-      expect(item).to have_key(:description)
-      expect(item[:description]).to be_a(String)
+    expect(attributes).to have_key(:description)
+    expect(attributes[:description]).to be_a(String)
 
-      expect(item).to have_key(:unit_price)
-      expect(item[:unit_price]).to be_a(Float)
-    end
+    expect(attributes).to have_key(:unit_price)
+    expect(attributes[:unit_price]).to be_a(Float)
   end
 end
