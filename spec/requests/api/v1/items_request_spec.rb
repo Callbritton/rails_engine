@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe "Items API" do
-  before(:each) do
+
+  it "sends a list of items" do
     create_list(:item, 3)
 
     get '/api/v1/items'
@@ -9,25 +10,22 @@ describe "Items API" do
     expect(response).to be_successful
 
     item = JSON.parse(response.body, symbolize_names: true)
-    @data = item[:data][0]
-    @attributes = @data[:attributes]
-  end
+    data = item[:data][0]
+    attributes = data[:attributes]
 
-  it "sends a list of items" do
+    expect(data.count).to eq(3)
 
-    expect(@data.count).to eq(3)
+    expect(data).to have_key(:id)
+    expect(data[:id]).to be_an(String)
 
-    expect(@data).to have_key(:id)
-    expect(@data[:id]).to be_an(String)
+    expect(attributes).to have_key(:name)
+    expect(attributes[:name]).to be_a(String)
 
-    expect(@attributes).to have_key(:name)
-    expect(@attributes[:name]).to be_a(String)
+    expect(attributes).to have_key(:description)
+    expect(attributes[:description]).to be_a(String)
 
-    expect(@attributes).to have_key(:description)
-    expect(@attributes[:description]).to be_a(String)
-
-    expect(@attributes).to have_key(:unit_price)
-    expect(@attributes[:unit_price]).to be_a(Float)
+    expect(attributes).to have_key(:unit_price)
+    expect(attributes[:unit_price]).to be_a(Float)
   end
 
   it "can get one item by it's id" do
@@ -37,7 +35,7 @@ describe "Items API" do
 
     item = JSON.parse(response.body, symbolize_names: true)
     data = item[:data]
-    attributes = @data[:attributes]
+    attributes = data[:attributes]
 
     expect(response).to be_successful
 
@@ -80,17 +78,32 @@ describe "Items API" do
   end
 
   it "can update an existing item" do
-  id = create(:item).id
-  previous_name = Item.last.name
-  item_params = { name: "Slightly unsafe slingshot" }
-  headers = {"CONTENT_TYPE" => "application/json"}
+    id = create(:item).id
+    previous_name = Item.last.name
+    item_params = { name: "Slightly unsafe slingshot" }
+    headers = {"CONTENT_TYPE" => "application/json"}
 
-  patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
+    patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
 
-  item = Item.find_by(id: id)
+    item = Item.find_by(id: id)
 
-  expect(response).to be_successful
-  expect(item.name).to_not eq(previous_name)
-  expect(item.name).to eq("Slightly unsafe slingshot")
-end
+    expect(response).to be_successful
+    expect(item.name).to_not eq(previous_name)
+    expect(item.name).to eq("Slightly unsafe slingshot")
+  end
+
+  it "can destroy an item" do
+    item = create(:item)
+
+    expect(Item.count).to eq(1)
+
+    delete "/api/v1/items/#{item.id}"
+
+    # Alternative option:
+    # expect{ delete "/api/v1/books/#{book.id}" }.to change(Book, :count).by(-1)
+
+    expect(response).to be_successful
+    expect(Item.count).to eq(0)
+    expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
