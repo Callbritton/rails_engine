@@ -36,8 +36,24 @@ describe "Items API" do
     get "/api/v1/items/#{id}"
 
     item = JSON.parse(response.body, symbolize_names: true)
+    data = item[:data]
+    attributes = @data[:attributes]
 
     expect(response).to be_successful
 
+    expect(data).to have_key(:id)
+    expect(data[:id]).to eq(id.to_s)
+
+    expect(attributes).to have_key(:name)
+    expect(attributes[:name]).to be_a(String)
+
+    expect(attributes).to have_key(:description)
+    expect(attributes[:description]).to be_a(String)
+
+    expect(attributes).to have_key(:unit_price)
+    expect(attributes[:unit_price]).to be_a(Float)
+
+    expect(attributes).to have_key(:merchant_id)
+    expect(attributes[:merchant_id]).to be_a(Integer)
   end
 end
