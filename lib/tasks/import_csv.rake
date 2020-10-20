@@ -1,16 +1,16 @@
 require 'csv'
 
 desc "import csv data"
-task import: :environment do
+task import: ["db:reset", :environment] do
 
   puts "Resetting database..."
 
-  Transaction.destroy_all
-  InvoiceItem.destroy_all
-  Invoice.destroy_all
-  Item.destroy_all
-  Merchant.destroy_all
-  Customer.destroy_all
+  # Transaction.destroy_all
+  # InvoiceItem.destroy_all
+  # Invoice.destroy_all
+  # Item.destroy_all
+  # Merchant.destroy_all
+  # Customer.destroy_all
 
 # Customers:
   puts "Importing Customers..."
@@ -68,9 +68,10 @@ task import: :environment do
     InvoiceItem.create!(data)
   end
 
-  ActiveRecord::Base.connection.tables.each do |t|
-    ActiveRecord::Base.connection.reset_pk_sequence!(t)
-  end
+# Test if this is needed
+  # ActiveRecord::Base.connection.tables.each do |t|
+  #   ActiveRecord::Base.connection.reset_pk_sequence!(t)
+  # end
 
   puts "All data successfully imported to database!"
 end
