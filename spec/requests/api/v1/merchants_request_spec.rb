@@ -52,7 +52,7 @@ describe "Merchants API" do
     expect(merchant.name).to eq(merchant_params[:name])
   end
 
-  xit "can update an existing item" do
+  it "can update an existing item" do
     id = create(:merchant).id
     previous_name = Merchant.last.name
     merchant_params = { name: "Slightly unsafe slingshot store" }
