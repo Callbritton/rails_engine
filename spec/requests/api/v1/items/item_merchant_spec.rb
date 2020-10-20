@@ -9,11 +9,11 @@ RSpec.describe 'Relationships' do
     expect(response).to be_successful
     expect(response.content_type).to eq("application/json")
 
-    merchant = JSON.parse(response.body, symbolize_names: true)
-    data = merchant[:data][0]
+    json = JSON.parse(response.body, symbolize_names: true)
+    data = json[:data]
     attributes = data[:attributes]
 
-    expect(merchant[:data][:id]).to eq(merchant.id.to_s)
+    expect(data[:id]).to eq(merchant.id.to_s)
     expect(attributes[:name]).to eq(merchant.name)
   end
 end
