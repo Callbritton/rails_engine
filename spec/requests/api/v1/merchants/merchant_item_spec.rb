@@ -5,7 +5,7 @@ RSpec.describe 'Relationships' do
     merchant = create(:merchant)
     5.times {create(:item, merchant: merchant)}
 
-    get "/api/v1/items/#{merchant.id}/items"
+    get "/api/v1/merchants/#{merchant.id}/items"
     expect(response).to be_successful
     expect(response.content_type).to eq("application/json")
 
