@@ -68,6 +68,7 @@ task import: :environment do
     InvoiceItem.create!(data)
   end
 
+# Test if this is needed
   ActiveRecord::Base.connection.tables.each do |t|
     ActiveRecord::Base.connection.reset_pk_sequence!(t)
   end
