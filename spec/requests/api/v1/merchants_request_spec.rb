@@ -22,7 +22,7 @@ describe "Merchants API" do
     expect(attributes[:name]).to be_a(String)
   end
 
-  xit "has a merchant show" do
+  it "has a merchant show" do
     id = create(:merchant).id
 
     get "/api/v1/merchants/#{id}"
@@ -40,7 +40,7 @@ describe "Merchants API" do
     expect(attributes[:name]).to be_a(String)
   end
 
-  xit "can create a new merchant" do
+  it "can create a new merchant" do
     merchant_params = {name: 'Totally safe slingshot store', id: 12 }
 
     headers = {"CONTENT_TYPE" => "application/json"}
