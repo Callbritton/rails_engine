@@ -41,8 +41,7 @@ describe "Merchants API" do
   end
 
   it "can create a new merchant" do
-    merchant_params = {name: 'Totally safe slingshot store', id: 12 }
-
+    merchant_params = {name: 'Totally safe slingshot store' }
     headers = {"CONTENT_TYPE" => "application/json"}
 
     post "/api/v1/merchants", headers: headers, params: JSON.generate(merchant_params)
@@ -51,7 +50,6 @@ describe "Merchants API" do
 
     expect(response).to be_successful
     expect(merchant.name).to eq(merchant_params[:name])
-    expect(merchant.id).to eq(merchant_params[:id])
   end
 
   xit "can update an existing item" do
