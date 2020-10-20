@@ -13,6 +13,5 @@ RSpec.describe 'Relationships' do
     data = json[:data]
 
     expect(data.count).to eq(5)
-
   end
 end
