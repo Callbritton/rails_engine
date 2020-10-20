@@ -5,7 +5,7 @@ RSpec.describe 'Relationships' do
     item = create(:item)
     merchant = item.merchant
 
-    get "/api/v1/items/#{item.id}/merchant"
+    get "/api/v1/items/#{item.id}/merchants"
     expect(response).to be_successful
     expect(response.content_type).to eq("application/json")
 
