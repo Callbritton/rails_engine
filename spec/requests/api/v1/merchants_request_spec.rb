@@ -67,7 +67,7 @@ describe "Merchants API" do
     expect(merchant.name).to eq("Slightly unsafe slingshot store")
   end
 
-  xit "can destroy an merchant" do
+  it "can destroy an merchant" do
     merchant = create(:merchant)
 
     expect(Merchant.count).to eq(1)
