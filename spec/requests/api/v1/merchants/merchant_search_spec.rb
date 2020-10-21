@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Search endpoints' do
-  it 'can find a merchants that contain a fragment, case insensitive' do
+  it 'can find a single merchant that contains a fragment, case insensitive' do
     merchant = Merchant.create(name: "Toy Store")
     merchant_name = "STORE"
 
