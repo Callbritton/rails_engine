@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Search endpoints' do
-  it 'can find a list of items that contain a fragment, case insensitive' do
+  xit 'can find a list of items that contain a fragment, case insensitive' do
     item = create(:item)
     merchant = item.merchant
 
