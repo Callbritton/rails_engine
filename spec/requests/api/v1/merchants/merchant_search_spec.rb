@@ -20,12 +20,12 @@ RSpec.describe 'Search endpoints' do
   end
 
   it 'can find a list of merchants that contains a fragment, case insensitive' do
-    merchant = Merchant.create(name: "Toy Store")
-    merchant = Merchant.create(name: "oy StO")
-    merchant = Merchant.create(name: "Bike Shop")
-    merchant = Merchant.create(name: "STORE")
-    merchant = Merchant.create(name: "Tire Rack")
-    merchant = Merchant.create(name: "StOrAgE SHACK")
+    merchant1 = Merchant.create(name: "Toy Store")
+    merchant2 = Merchant.create(name: "oy StO")
+    merchant3 = Merchant.create(name: "Bike Shop")
+    merchant4 = Merchant.create(name: "STORE")
+    merchant5 = Merchant.create(name: "Tire Rack")
+    merchant6 = Merchant.create(name: "StOrAgE SHACK")
 
     attribute = :name
     value = "sto"
@@ -36,8 +36,8 @@ RSpec.describe 'Search endpoints' do
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
-    attributes = data[:attributes]
+    # attributes = data[:attributes]
 # Need to find additional ways to test this...
-    expect(json.count).to eq(4)
+    expect(data.count).to eq(4)
   end
 end
