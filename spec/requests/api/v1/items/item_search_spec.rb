@@ -5,7 +5,7 @@ RSpec.describe 'Search endpoints' do
     id = create(:merchant).id
     item = Item.create(name: "Slingshot", unit_price: 44, description: "Won't put your eye out", merchant_id: id)
     attribute = :name
-    value = "Slingshot"
+    value = "SlIN"
 
     get "/api/v1/items/find?#{attribute}=#{value}"
     expect(response).to be_successful
@@ -20,18 +20,20 @@ RSpec.describe 'Search endpoints' do
     expect(attributes[:name]).to eq(item.name)
   end
 
-  xit 'can find a list of items that contains a fragment, case insensitive' do
-    Merchant.create(name: "Toy Store")
-    Merchant.create(name: "oy StO")
-    Merchant.create(name: "Bike Shop")
-    Merchant.create(name: "STORE")
-    Merchant.create(name: "Tire Rack")
-    Merchant.create(name: "StOrAgE SHACK")
+  it 'can find a list of items that contains a fragment, case insensitive' do
+    id1 = create(:merchant).id
+    id2 = create(:merchant).id
+    id3 = create(:merchant).id
+    id4 = create(:merchant).id
+    Item.create(name: "Slingshot", unit_price: 44, description: "Won't put your eye out", merchant_id: id1)
+    Item.create(name: "Pellet Gun", unit_price: 44, description: "Won't put your eye out", merchant_id: id2)
+    Item.create(name: "LaserShot", unit_price: 44, description: "Won't put your eye out", merchant_id: id3)
+    Item.create(name: "Bow n' Arrow", unit_price: 44, description: "Won't put your eye out", merchant_id: id4)
 
     attribute = :name
-    value = "sto"
+    value = "ShOt"
 
-    get "/api/v1/merchants/find_all?#{attribute}=#{value}"
+    get "/api/v1/items/find_all?#{attribute}=#{value}"
     expect(response).to be_successful
     expect(response.content_type).to eq("application/json")
 
@@ -39,6 +41,6 @@ RSpec.describe 'Search endpoints' do
     data = json[:data]
 
 # Need to find additional ways to test this...
-    expect(data.count).to eq(4)
+    expect(data.count).to eq(2)
   end
 end
