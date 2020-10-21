@@ -4,6 +4,11 @@ class Api::V1::Merchants::SearchController < ApplicationController
     render json: MerchantSerializer.new(merchant)
   end
 
+  def index
+    merchants = Merchant.where("#{attribute} ILIKE '%#{value}%'")
+    render json: MerchantSerializer.new(merchants)
+  end
+
   def attribute
     request.query_parameters.keys[0]
   end
