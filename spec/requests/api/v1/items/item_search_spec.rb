@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Search endpoints' do
-  xit 'can find a single merchant that contains a fragment, case insensitive' do
-    merchant = Merchant.create(name: "Toy Store")
+  it 'can find a single item that contains a fragment, case insensitive' do
+    id = create(:merchant).id
+    item = Item.create(name: "Slingshot", unit_price: 44, description: "Won't put your eye out", merchant_id: id)
     attribute = :name
-    value = "TOY ST"
+    value = "Slingshot"
 
-    get "/api/v1/merchants/find?#{attribute}=#{value}"
+    get "/api/v1/items/find?#{attribute}=#{value}"
     expect(response).to be_successful
     expect(response.content_type).to eq("application/json")
 
@@ -14,12 +15,12 @@ RSpec.describe 'Search endpoints' do
     data = json[:data]
     attributes = data[:attributes]
 
-    expect(data[:id]).to eq("#{merchant.id}")
-    expect(data[:type]).to eq('merchant')
-    expect(attributes[:name]).to eq(merchant.name)
+    expect(data[:id]).to eq("#{item.id}")
+    expect(data[:type]).to eq('item')
+    expect(attributes[:name]).to eq(item.name)
   end
 
-  xit 'can find a list of merchants that contains a fragment, case insensitive' do
+  xit 'can find a list of items that contains a fragment, case insensitive' do
     Merchant.create(name: "Toy Store")
     Merchant.create(name: "oy StO")
     Merchant.create(name: "Bike Shop")
