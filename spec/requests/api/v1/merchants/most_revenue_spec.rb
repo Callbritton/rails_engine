@@ -37,6 +37,7 @@ RSpec.describe 'Business Intelligence Endpoints' do
     create(:transaction, invoice_id: invoice3.id, result: 'success')
     create(:transaction, invoice_id: invoice4.id, result: 'success')
     create(:transaction, invoice_id: invoice5.id, result: 'success')
+    create(:transaction, invoice_id: invoice6.id, result: 'success')
 
     value = 4
 
@@ -46,12 +47,11 @@ RSpec.describe 'Business Intelligence Endpoints' do
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
-    name = data[:attributes][:name]
 
     expect(data.count).to eq(4)
-    expect(name[0]).to eq(merchant6.name)
-    expect(name[1]).to eq(merchant5.name)
-    expect(name[2]).to eq(merchant4.name)
-    expect(name[3]).to eq(merchant3.name)
+    expect(data[0][:attributes][:name]).to eq(merchant6.name)
+    expect(data[1][:attributes][:name]).to eq(merchant5.name)
+    expect(data[2][:attributes][:name]).to eq(merchant4.name)
+    expect(data[3][:attributes][:name]).to eq(merchant3.name)
   end
 end
