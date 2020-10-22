@@ -24,12 +24,12 @@ RSpec.describe 'Business Intelligence Endpoints' do
     invoice5 = create(:invoice, merchant_id: merchant5.id, status: 'shipped')
     invoice6 = create(:invoice, merchant_id: merchant6.id, status: 'shipped')
 
-    inventory_item1 = create(:invoice_item, item: item1, invoice: invoice1, quantity: 10, unit_price: item1.unit_price)
-    inventory_item2 = create(:invoice_item, item: item2, invoice: invoice2, quantity: 20, unit_price: item2.unit_price)
-    inventory_item3 = create(:invoice_item, item: item3, invoice: invoice3, quantity: 30, unit_price: item3.unit_price)
-    inventory_item4 = create(:invoice_item, item: item4, invoice: invoice4, quantity: 40, unit_price: item4.unit_price)
-    inventory_item5 = create(:invoice_item, item: item5, invoice: invoice5, quantity: 50, unit_price: item5.unit_price)
-    inventory_item6 = create(:invoice_item, item: item6, invoice: invoice6, quantity: 60, unit_price: item6.unit_price)
+    create(:invoice_item, item: item1, invoice: invoice1, quantity: 10, unit_price: item1.unit_price)
+    create(:invoice_item, item: item2, invoice: invoice2, quantity: 20, unit_price: item2.unit_price)
+    create(:invoice_item, item: item3, invoice: invoice3, quantity: 30, unit_price: item3.unit_price)
+    create(:invoice_item, item: item4, invoice: invoice4, quantity: 40, unit_price: item4.unit_price)
+    create(:invoice_item, item: item5, invoice: invoice5, quantity: 50, unit_price: item5.unit_price)
+    create(:invoice_item, item: item6, invoice: invoice6, quantity: 60, unit_price: item6.unit_price)
 
 
     create(:transaction, invoice_id: invoice1.id, result: 'success')
@@ -46,7 +46,12 @@ RSpec.describe 'Business Intelligence Endpoints' do
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
+    name = data[:attributes][:name]
 
     expect(data.count).to eq(4)
+    expect(name[0]).to eq(merchant6.name)
+    expect(name[1]).to eq(merchant5.name)
+    expect(name[2]).to eq(merchant4.name)
+    expect(name[3]).to eq(merchant3.name)
   end
 end
