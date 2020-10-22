@@ -42,7 +42,6 @@ RSpec.describe Merchant, type: :model do
       create(:invoice_item, item: item5, invoice: invoice5, quantity: 50, unit_price: item5.unit_price)
       create(:invoice_item, item: item6, invoice: invoice6, quantity: 60, unit_price: item6.unit_price)
 
-
       create(:transaction, invoice_id: invoice1.id, result: 'success')
       create(:transaction, invoice_id: invoice2.id, result: 'success')
       create(:transaction, invoice_id: invoice3.id, result: 'success')
