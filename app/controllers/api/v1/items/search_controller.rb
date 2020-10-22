@@ -4,6 +4,11 @@ class Api::V1::Items::SearchController < ApplicationController
     render json: ItemSerializer.new(item)
   end
 
+  def index
+    items = Item.where("#{attribute} ILIKE '%#{value}%'")
+    render json: ItemSerializer.new(items)
+  end
+
   def attribute
     request.query_parameters.keys[0]
   end
