@@ -15,7 +15,7 @@ RSpec.describe 'Business Intelligence Endpoints' do
     item3 = Item.create(name: "LaserShot", unit_price: 33, description: "Won't put your eye out", merchant_id: merchant3.id)
     item4 = Item.create(name: "Bow n' Arrow", unit_price: 44, description: "Won't put your eye out", merchant_id: merchant4.id)
     item5 = Item.create(name: "Rubber Band", unit_price: 55, description: "Won't put your eye out", merchant_id: merchant5.id)
-    item5 = Item.create(name: "Hot Poker", unit_price: 66, description: "Won't put your eye out", merchant_id: merchant6.id)
+    item6 = Item.create(name: "Hot Poker", unit_price: 66, description: "Won't put your eye out", merchant_id: merchant6.id)
 
     invoice1 = create(:invoice, merchant_id: merchant1.id, status: 'shipped')
     invoice2 = create(:invoice, merchant_id: merchant2.id, status: 'shipped')
