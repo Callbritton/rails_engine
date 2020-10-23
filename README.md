@@ -46,6 +46,10 @@ Both projects require:
     * `rails db:create`
     * `rails db:migrate`
     * `figaro install`
+    
+* This last command should create the file config/application.yml. Open this file and add configuration for the Environment variable RAILS_ENGINE_DOMAIN. This should be the url from where Rails Engine is being served. Append this to config/application.yml:
+
+`RAILS_ENGINE_DOMAIN: http://localhost:3000`
 
 ## Testing
 
