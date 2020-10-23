@@ -1,7 +1,7 @@
 # Rails Engine
 ### BE Mod 3 Week 3 Solo Project
 
-### Developed By:
+### Development Team:
 
 #### [Chris Allbritton](https://github.com/Callbritton)
 
@@ -18,7 +18,7 @@
 - Write basic SQL statements without the assistance of an ORM ⭐
 
 ## Schema
-<img width="800" height="600" alt="Schema Light Screenshot" src="/app/assets/images/Rails Engine Schema.png">
+<img width="1000" height="600" alt="Schema Light Screenshot" src="/app/assets/images/Rails Engine Schema.png">
 
 ## Setup
 
