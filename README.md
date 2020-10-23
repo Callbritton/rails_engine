@@ -23,6 +23,7 @@
 ## Setup
 
 This project utilizes two separate Rails applications:
+
 Both projects require:
 - Ruby 2.5.3.
 - Rails 5.2.4.3
@@ -54,6 +55,6 @@ Both projects require:
 
 ### Test the Spec Harness In Rails Driver:
 * Within the Rails Engine app run your development server with `rails s`.
-* While the Rails Engine server is running, and in a separate terminal tab (`cmd+t`), `cd` into the Rails Driver directory.
+* While the Rails Engine server is running, and in a separate terminal tab (`cmd+t`), CD into the Rails Driver directory.
 * Once the Rails Engine server is running, from within the Rails Driver directory run the test suite with `bundle exec rspec`
 * At this time there should be 1 failing test!
