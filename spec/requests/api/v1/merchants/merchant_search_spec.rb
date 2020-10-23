@@ -37,7 +37,6 @@ RSpec.describe 'Search endpoints' do
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
 
-# Need to find additional ways to test this...
     expect(data.count).to eq(4)
   end
 end
